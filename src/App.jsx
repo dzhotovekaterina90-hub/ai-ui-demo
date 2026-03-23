@@ -1,157 +1,194 @@
-=import React from 'react';
+=import React from "react";
 
-const SunIcon = ({ className = 'w-12 h-12 text-yellow-400' }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-    <circle cx="12" cy="12" r="4" fill="currentColor" />
-    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <path d="M12 2v2" />
-      <path d="M12 20v2" />
-      <path d="M4.93 4.93l1.41 1.41" />
-      <path d="M17.66 17.66l1.41 1.41" />
-      <path d="M2 12h2" />
-      <path d="M20 12h2" />
-      <path d="M4.93 19.07l1.41-1.41" />
-      <path d="M17.66 6.34l1.41-1.41" />
-    </g>
-  </svg>
-);
+function WeatherIcon({ condition, className = "w-20 h-20" }) {
+  const common = { className, viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" };
 
-const CloudIcon = ({ className = 'w-12 h-12 text-gray-400' }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="M7 18h10a4 4 0 0 0 0-8 5 5 0 0 0-9.9-1.4A4 4 0 0 0 7 18z"
-      fill="currentColor"
-    />
-  </svg>
-);
+  switch ((condition || "").toLowerCase()) {
+    case "clear":
+    case "sunny":
+    case "sun":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="4" fill="currentColor" />
+          <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.2" y1="4.2" x2="5.6" y2="5.6" />
+            <line x1="18.4" y1="18.4" x2="19.8" y2="19.8" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.2" y1="19.8" x2="5.6" y2="18.4" />
+            <line x1="18.4" y1="5.6" x2="19.8" y2="4.2" />
+          </g>
+        </svg>
+      );
 
-const RainIcon = ({ className = 'w-12 h-12 text-blue-400' }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="M7 18h10a4 4 0 0 0 0-8 5 5 0 0 0-9.9-1.4A4 4 0 0 0 7 18z"
-      fill="currentColor"
-    />
-    <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-      <path d="M8.5 20.5l-.8 1.5" />
-      <path d="M12 20.5l-.8 1.5" />
-      <path d="M15.5 20.5l-.8 1.5" />
-    </g>
-  </svg>
-);
+    case "partly cloudy":
+    case "partly_cloudy":
+    case "partly":
+    case "cloudy":
+      return (
+        <svg {...common}>
+          <g fill="currentColor">
+            <path d="M20 17.58A4.42 4.42 0 0015.58 13H15a6 6 0 10-11.9 1.6A3.5 3.5 0 006.5 20h9a4.58 4.58 0 004.5-2.42z" />
+          </g>
+        </svg>
+      );
 
-function WeatherCard({
-  city = 'San Francisco',
-  temp = 21,
-  condition = 'Sunny',
-  humidity = 62,
-  wind = 13,
-  unit = 'C',
+    case "rain":
+    case "drizzle":
+      return (
+        <svg {...common}>
+          <g fill="currentColor">
+            <path d="M20 16.58A4.42 4.42 0 0015.58 12H15a6 6 0 10-11.9 1.6A3.5 3.5 0 006.5 19h9a4.58 4.58 0 004.5-2.42z" />
+          </g>
+          <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="8.5" y1="21" x2="8.5" y2="23" />
+            <line x1="11.5" y1="21" x2="11.5" y2="23" />
+            <line x1="14.5" y1="21" x2="14.5" y2="23" />
+          </g>
+        </svg>
+      );
+
+    case "snow":
+      return (
+        <svg {...common}>
+          <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20 17.58A4.42 4.42 0 0015.58 13H15a6 6 0 10-11.9 1.6A3.5 3.5 0 006.5 20h9a4.58 4.58 0 004.5-2.42z" fill="currentColor" />
+            <g transform="translate(6 17)">
+              <line x1="0" y1="0" x2="0" y2="2" />
+              <line x1="-1" y1="1" x2="1" y2="1" />
+              <line x1="-1.5" y1="-0.5" x2="1.5" y2="2.5" />
+            </g>
+          </g>
+        </svg>
+      );
+
+    case "thunder":
+    case "storm":
+      return (
+        <svg {...common}>
+          <g fill="currentColor">
+            <path d="M20 17.58A4.42 4.42 0 0015.58 13H15a6 6 0 10-11.9 1.6A3.5 3.5 0 006.5 20h9a4.58 4.58 0 004.5-2.42z" />
+          </g>
+          <path d="M13 11l-3 5h4l-1 5 5-8h-4l1-2h-2z" fill="currentColor" />
+        </svg>
+      );
+
+    default:
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="4" fill="currentColor" />
+        </svg>
+      );
+  }
+}
+
+export function WeatherCard({
+  city = "San Francisco",
+  temperature = 22,
+  unit = "°C",
+  condition = "Partly Cloudy",
+  humidity = 58,
+  wind = { speed: 12, unit: "km/h", dir: "NW" },
 }) {
-  const cond = condition.toLowerCase();
-  const isSunny = cond.includes('sun') || cond.includes('clear');
-  const isRain = cond.includes('rain') || cond.includes('shower') || cond.includes('storm');
-  const isCloudy = !isSunny && !isRain;
-
-  const bgGradient = isSunny
-    ? 'from-yellow-50 via-yellow-100 to-white'
-    : isRain
-    ? 'from-blue-50 via-blue-100 to-white'
-    : 'from-gray-50 via-gray-100 to-white';
+  const bgGradient =
+    (condition || "").toLowerCase().includes("rain")
+      ? "from-blue-600 to-indigo-700"
+      : (condition || "").toLowerCase().includes("clear") || (condition || "").toLowerCase().includes("sun")
+      ? "from-yellow-400 to-orange-400"
+      : (condition || "").toLowerCase().includes("snow")
+      ? "from-sky-400 to-indigo-500"
+      : "from-blue-500 to-indigo-600";
 
   return (
-    <div className={`max-w-sm w-full mx-auto p-6 rounded-2xl shadow-xl bg-gradient-to-b ${bgGradient} backdrop-blur-sm`}>
-      <div className="flex items-start justify-between">
-        <div>
-          <h3 className="text-gray-700 text-sm font-medium">城市</h3>
-          <h2 className="mt-1 text-2xl font-semibold text-gray-900">{city}</h2>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex flex-col items-end">
-            <span className="text-4xl font-extrabold text-gray-900 leading-none">
-              {Math.round(temp)}°
-              <span className="text-lg font-medium text-gray-500">{unit}</span>
-            </span>
-            <span className="text-sm text-gray-500">Feels like {Math.round(temp)}°{unit}</span>
+    <div className="max-w-sm w-full">
+      <div className="rounded-2xl overflow-hidden shadow-xl">
+        <div className={`p-6 ${bgGradient} bg-gradient-to-br text-white`}>
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm opacity-90">Weather</p>
+              <h2 className="text-2xl font-semibold tracking-tight">{city}</h2>
+            </div>
+            <div className="text-right">
+              <p className="text-5xl font-bold leading-none">
+                {Math.round(temperature)}
+                <span className="text-xl font-medium ml-1">{unit}</span>
+              </p>
+              <p className="mt-1 text-sm opacity-90">{condition}</p>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="mt-6 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <div className="p-3 rounded-lg bg-white/60 backdrop-blur-sm">
-            {isSunny ? (
-              <SunIcon />
-            ) : isRain ? (
-              <RainIcon />
-            ) : (
-              <CloudIcon />
-            )}
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">天气</p>
-            <p className="mt-1 text-lg font-semibold text-gray-800 capitalize">{condition}</p>
+          <div className="mt-6 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="bg-white/20 rounded-xl p-3">
+                <WeatherIcon condition={condition} className="w-14 h-14 text-white" />
+              </div>
+              <div>
+                <p className="text-sm opacity-90">Feels like</p>
+                <p className="font-medium text-lg">{Math.round(temperature)}{unit}</p>
+              </div>
+            </div>
+
+            <div className="bg-white/10 rounded-xl p-3 text-center min-w-[96px]">
+              <p className="text-xs opacity-90">Now</p>
+              <p className="font-semibold text-lg mt-1">{condition}</p>
+            </div>
           </div>
         </div>
 
-        <div className="flex space-x-4">
-          <div className="px-4 py-2 rounded-lg bg-white/50 backdrop-blur-sm text-center">
-            <p className="text-xs text-gray-500">湿度</p>
-            <p className="mt-1 text-sm font-medium text-gray-800">{humidity}%</p>
-          </div>
-          <div className="px-4 py-2 rounded-lg bg-white/50 backdrop-blur-sm text-center">
-            <p className="text-xs text-gray-500">风速</p>
-            <p className="mt-1 text-sm font-medium text-gray-800">{wind} km/h</p>
-          </div>
-        </div>
-      </div>
+        <div className="bg-white p-4">
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M20 15a4 4 0 01-4 4H8a4 4 0 010-8 4 4 0 014-4h1" />
+                </svg>
+                <div>
+                  <p className="text-xs text-gray-400">Humidity</p>
+                  <p className="font-medium">{humidity}%</p>
+                </div>
+              </div>
+            </div>
 
-      <div className="mt-6 border-t pt-4 flex items-center justify-between text-sm text-gray-500">
-        <div className="flex items-center space-x-2">
-          <svg className="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path d="M3 12h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M6 6l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-          <span>Updated just now</span>
-        </div>
-        <div className="text-right">
-          <span className="font-medium text-gray-700">{city}</span>
-          <div className="text-xs text-gray-400">Local time</div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M3 12h5l4 8 4-16 3 8" />
+                </svg>
+                <div>
+                  <p className="text-xs text-gray-400">Wind</p>
+                  <p className="font-medium">{wind.speed} {wind.unit} {wind.dir ? `· ${wind.dir}` : ""}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 text-xs text-gray-500">
+            <p>Updated just now</p>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default function WeatherCardPage() {
+export default function WeatherPage() {
+  const sample = {
+    city: "Seattle",
+    temperature: 16,
+    unit: "°C",
+    condition: "Rain",
+    humidity: 82,
+    wind: { speed: 18, unit: "km/h", dir: "SW" },
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white flex items-center justify-center p-6">
-      <div className="space-y-6">
-        <WeatherCard
-          city="Beijing"
-          temp={28}
-          condition="Sunny"
-          humidity={45}
-          wind={10}
-          unit="C"
-        />
-
-        <WeatherCard
-          city="London"
-          temp={16}
-          condition="Cloudy"
-          humidity={82}
-          wind={7}
-          unit="C"
-        />
-
-        <WeatherCard
-          city="Tokyo"
-          temp={22}
-          condition="Rain"
-          humidity={90}
-          wind={12}
-          unit="C"
-        />
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-4xl">
+        <div className="flex items-center justify-center">
+          <WeatherCard {...sample} />
+        </div>
       </div>
     </div>
   );
