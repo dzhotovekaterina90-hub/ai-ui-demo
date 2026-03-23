@@ -2,8 +2,8 @@
 
 export default function HelloWorldPage() {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <h1 className="text-white text-6xl sm:text-7xl md:text-8xl font-extrabold">
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <h1 className="text-blue-600 text-6xl md:text-8xl font-bold">
         Hello World
       </h1>
     </div>
